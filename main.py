@@ -1,5 +1,7 @@
 from typing import Any, Dict
 from rich.console import Console
+from rich.table import Table
+from rich import box
 
 
 class Page:
@@ -8,8 +10,20 @@ class Page:
         self.content = content
         self.info = info
     
-    def display(self) -> str:
-        return f"{self.title}\n{self.content}"
+    def display(self) -> Table:
+        page_table = Table(expand=True)
+        info_table = Table.grid(expand=True)
+        info_table.add_column()
+        info_table.add_column()
+        for key, value in self.info.items():
+            info_table.add_row(key, value)
+        
+        page_table.add_column(self.title)
+        page_table.add_column()
+        page_table.add_row(self.content, info_table)
+        
+        
+        return page_table
     """
     create table:
     TITLE
@@ -19,4 +33,11 @@ class Page:
     """
 
 if __name__ == "__main__":
-    console = console
+    console = Console()
+    
+    test_page = Page(
+        "Test Page",
+        "Hi there!\nThis is a cool test page\n:)",
+        {"pages": "1", "a": ":smile:"}
+    )
+    console.print(test_page.display())
