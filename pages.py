@@ -26,6 +26,14 @@ class Page:
 
 PyWiki = Page(
     "PyWiki",
-    "",
+    "PYWiki is a wiki-ish program where pages can be added through a custom class.",
     {"Creator": "Nathan3-14", "Pages": "1"}
 )
+TestPage = Page(
+    "Test Page",
+    "This is a test page to see how weighted titles are",
+    {}
+)
+
+page_list = [PyWiki, TestPage]
+pages = {wikipage.title.lower(): wikipage for wikipage in page_list}
